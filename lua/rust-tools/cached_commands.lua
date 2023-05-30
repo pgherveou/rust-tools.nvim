@@ -4,16 +4,19 @@ local M = {}
 local cache = {
   last_debuggable = nil,
   last_runnable = nil,
+  last = nil,
 }
 
--- @param action 
-M.set_last_runnable = function(c, r)
+-- @param action
+M.set_last_runnable = function(choice, result)
   cache.last_runnable = { choice, result }
+  cache.last = "runnable"
 end
 
--- @param args 
+-- @param args
 M.set_last_debuggable = function(args)
   cache.last_debuggable = args
+  cache.last = "debuggable"
 end
 
 M.execute_last_debuggable = function()
@@ -25,10 +28,18 @@ M.execute_last_debuggable = function()
   end
 end
 
+M.execute_last = function()
+  if cache.last == "debuggable" then
+    M.execute_last_debuggable()
+  else
+    M.execute_last_runnable()
+  end
+end
+
 M.execute_last_runnable = function()
   local action = cache.last_runnable
-  if action then 
-    rt.runnables.run_command(action[0], action[1])
+  if action then
+    rt.runnables.run_command(action[1], action[2])
   else
     rt.runnables.runnables()
   end

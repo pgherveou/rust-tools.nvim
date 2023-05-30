@@ -64,6 +64,9 @@ local function setup_commands()
     RustLastRun = {
       rt.cached_commands.execute_last_runnable,
     },
+    RustLast = {
+      rt.cached_commands.execute_last,
+    },
     RustSetInlayHints = {
       rt.inlay_hints.set,
     },

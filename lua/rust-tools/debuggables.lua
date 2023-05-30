@@ -81,9 +81,8 @@ local function handler(_, result)
       end
 
       local args = result[choice].args
-      rt.dap.start(args)
-
       rt.cached_commands.set_last_debuggable(args)
+      rt.dap.start(args)
     end
   )
 end

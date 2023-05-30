@@ -55,6 +55,7 @@ local function scheduled_error(err)
 end
 
 function M.start(args)
+  rt.cached_commands.set_last_debuggable(args)
   if has_libs.dap == nil then
     if pcall(require, "dap") then
       has_libs.dap = true
