@@ -125,6 +125,13 @@ function M.start(args)
             return
           end
 
+          -- get the arguments from RUST_DEBUG_ARGS and split it by spaces or default to {}
+          if os.getenv("RUST_DEBUG_ARGS") then
+            args.executableArgs = vim.split(os.getenv("RUST_DEBUG_ARGS"), " ")
+          else
+            args.executableArgs = {}
+          end
+
           -- create debug configuration
           local dap_config = {
             name = "Rust tools debug",

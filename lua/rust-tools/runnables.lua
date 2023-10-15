@@ -49,6 +49,7 @@ function M.run_command(choice, result)
   local command, args, cwd = getCommand(choice, result)
 
   opts.executor.execute_command(command, args, cwd)
+  rt.cached_commands.set_last_runnable(choice, result)
 end
 
 local function handler(_, result)
