@@ -33,6 +33,11 @@ local function getCommand(c, results)
   ret = vim.list_extend({}, args.cargoArgs or {})
   ret = vim.list_extend(ret, args.cargoExtraArgs or {})
   table.insert(ret, "--")
+
+  if vim.fn.getenv("RUST_EXECUTABLE_ARGS") then
+    args.executableArgs = vim.split(vim.fn.getenv("RUST_EXECUTABLE_ARGS"), " ")
+  end
+
   ret = vim.list_extend(ret, args.executableArgs or {})
 
   return "cargo", ret, dir

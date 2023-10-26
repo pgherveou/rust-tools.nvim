@@ -18,7 +18,13 @@ function M.setup_lsp_commands()
 
   vim.lsp.commands["rust-analyzer.debugSingle"] = function(command)
     rt.utils.sanitize_command_for_debugging(command.arguments[1].args.cargoArgs)
-    rt.dap.start(command.arguments[1].args)
+    local args = command.arguments[1].args
+
+    if vim.fn.getenv("RUST_EXECUTABLE_ARGS") then
+      args.executableArgs = vim.split(vim.fn.getenv("RUST_EXECUTABLE_ARGS"), " ")
+    end
+
+    rt.dap.start(args)
   end
 end
 
