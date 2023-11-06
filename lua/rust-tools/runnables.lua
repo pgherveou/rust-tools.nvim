@@ -34,7 +34,7 @@ local function getCommand(c, results)
   ret = vim.list_extend(ret, args.cargoExtraArgs or {})
   table.insert(ret, "--")
 
-  if vim.fn.getenv("RUST_EXECUTABLE_ARGS") then
+  if vim.fn.getenv("RUST_EXECUTABLE_ARGS") ~= vim.NIL then
     args.executableArgs = vim.split(vim.fn.getenv("RUST_EXECUTABLE_ARGS"), " ")
   end
 

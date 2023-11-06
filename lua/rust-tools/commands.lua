@@ -20,10 +20,17 @@ function M.setup_lsp_commands()
     rt.utils.sanitize_command_for_debugging(command.arguments[1].args.cargoArgs)
     local args = command.arguments[1].args
 
-    if vim.fn.getenv("RUST_EXECUTABLE_ARGS") then
+    if vim.fn.getenv("RUST_EXECUTABLE_ARGS") ~= vim.NIL then
       args.executableArgs = vim.split(vim.fn.getenv("RUST_EXECUTABLE_ARGS"), " ")
     end
 
+
+    -- {
+    --   cargoArgs = { "build", "--package", "rust-playground", "--bin", "rust-playground" },
+    --   cargoExtraArgs = {},
+    --   executableArgs = {},
+    --   workspaceRoot = "/Users/pg/github/rust-playground"
+    -- }
     rt.dap.start(args)
   end
 end
